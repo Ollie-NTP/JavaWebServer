@@ -15,6 +15,31 @@ body {
     text-align: center; 
 }
 
+#table-wrapper {
+  position:relative;
+}
+#table-scroll {
+  height:250px;
+  overflow:auto;  
+  margin-top:0px;
+}
+#table-wrapper table {
+  width:100%;
+
+}
+#table-wrapper table * {
+  background:white;
+  color:black;
+}
+#table-wrapper table thead th .text {
+  position:absolute;   
+  margin-bottom: 20px;
+  z-index:2;
+  height:20px;
+  width:35%;
+  border:1px solid red;
+}
+
 h3 {
     color: whitesmoke; 
     text-align: center;
@@ -41,6 +66,7 @@ table{
     border-color: darkgrey;
 }
 .tablecenterdwithborder {
+    padding-top: 20px;
     border-width: 1px;
     border-spacing: 0 0px;
     border-radius: 0.5em;

@@ -81,7 +81,9 @@ public class eBooksStoreAdminEBooks extends HttpServlet {
                 closeActivity(null, pstmnt, connection);
                 request.getRequestDispatcher("./eBooksStoreAdminEBooks.jsp").forward(request, response);
             }
-        } // UPDATE SECTION
+        } 
+        // UPDATE SECTION
+        
         // check push on Update button
         else if (request.getParameter("admin_ebooks_update") != null) {
 
@@ -109,7 +111,9 @@ public class eBooksStoreAdminEBooks extends HttpServlet {
                 closeActivity(null, pstmnt, connection);
                 request.getRequestDispatcher("./eBooksStoreAdminEBooks.jsp").forward(request, response);
             }
-        } //  DELETE SECTION
+        } 
+        //  DELETE SECTION
+        
         // check push on Delete button
         else if (request.getParameter("admin_ebooks_delete") != null) { // delete 
             // declare specific variables
@@ -159,7 +163,7 @@ public class eBooksStoreAdminEBooks extends HttpServlet {
         }
     }
 
-//  UPDATE SELECTED CHECKBOX SECTION
+    //  UPDATE SELECTED CHECKBOX SECTION
     
     private void updateSelectedCheckBox(HttpServletRequest request, Connection connection, PreparedStatement pstmnt, String selectedRowISBN)
             throws SQLException {
@@ -215,7 +219,7 @@ public class eBooksStoreAdminEBooks extends HttpServlet {
         closeActivity(results, null, null);
     }
 
-//  CLOSE RESOURCES SECTION
+    //  CLOSE RESOURCES SECTION
     
     private void closeActivity(ResultSet resultSet, Statement stmt, Connection connection) {
         if (resultSet != null) {
@@ -259,7 +263,7 @@ public class eBooksStoreAdminEBooks extends HttpServlet {
         return Integer.parseInt(string);
     }
 
-    //  GET INSERT PARAMETERS 
+        //  GET INSERT PARAMETERS 
     
     private Map<BooksKey, String> getInsertParameters(HttpServletRequest request) {
 

@@ -15,7 +15,7 @@
     </head>
     <body>
         <h1>Manage the books from Electronic Books Store</h1>
-        <form action="${pageContext.request.contextPath}/eBooksStoreAdminEBooks">
+        <form style = "margin-top: -20px" action="${pageContext.request.contextPath}/eBooksStoreAdminEBooks">
             <%-- test if actual user is authenticated and authorized --%>
             <c:choose>
                 <c:when test="${(actualUserRole == 'admin')}">   
@@ -23,52 +23,58 @@
                     <%@ include file="./utils/eBooksStoreMenu.jsp" %>
                     <%-- Master view --%>
                     
-                    
- <!--  ########################  <form action="${pageContext.request.contextPath}/eBooksStoreAdminUsersServlet" method="POST">    -->
-                    
-                    
                         <sql:setDataSource 
                             var="snapshot" 
                             driver="org.apache.derby.jdbc.ClientDriver40"
                             url="jdbc:derby://localhost:1527/EBOOKS;create=true;"
-                            user="CIPRIAN"  
-                            password="sargeras01"/>
+                            user="olimpiu"  
+                            password="olimpiu"/>
                         <sql:query dataSource="${snapshot}" var="result">
-                            SELECT ISBN, DENUMIRE, ID_TYPE, ID_QUALITY, PAGES, ID_GENRE, PRET FROM EBOOKS.EBOOKS
+                            SELECT ISBN, DENUMIRE, TYPE, QUALITY, GENRE, PAGES, PRET 
+                            FROM EBOOKS.EBOOKS, EBOOKS.BOOK_TYPES, EBOOKS.BOOK_PAPER_QUALITIES, EBOOKS.BOOK_GENRES
+                            WHERE ID_TYPE = EBOOKS.BOOK_TYPES.ID 
+                              AND ID_QUALITY = EBOOKS.BOOK_PAPER_QUALITIES.ID
+                              AND ID_GENRE = EBOOKS.BOOK_GENRES.ID
+                            ORDER BY QUALITY ASC
                         </sql:query>
-                        <table border="1" width="100%">
+              
+                        <table style = "margin-top: -30px" border="2" width="100%">
                             <tr>
-                                <td width="4%" class="thc"> select </td>   
-                                <td width="12%" class="thc"> ISBN </td>  
+                                <td width="3%" class="thc"> Select </td>   
+                                <td width="12%" class="thc">ISBN</td>  
                                 <td width="12%" class="thc">DENUMIRE</td>
-                                <td width="12%" class="thc">ID_TYPE</td>
-                                <td width="12%" class="thc">ID_QUALITY</td>
+                                <td width="8%" class="thc">TYPE</td>
+                                <td width="8%" class="thc">QUALITY</td>
+                                <td width="8%" class="thc">GENRE</td>
                                 <td width="12%" class="thc">PAGES</td>
-                                <td width="12%" class="thc">ID_GENRE</td>
-                                <td width="12%" class="thc">PRET</td>
-                        </table>    
+                                <td width="13%" class="thc">PRET</td>
+                        </table>   
+                <div id="table-wrapper">
+                    <div id="table-scroll">
                         <table border="1" width="100%">    
                             </tr>
                             <c:forEach var="row" varStatus="loop" items="${result.rows}">
                                 <tr>
-                                    <td width="4%" class="tdc"><input type="checkbox" name="admin_ebooks_checkbox" value="${row.isbn}"></td>
+                                    <td width="3%" class="tdc"><input type="checkbox" name="admin_ebooks_checkbox" value="${row.isbn}"></td>
                                     <td width="12%" class="tdc"><c:out value="${row.isbn}"/></td>
                                     <td width="12%" class="tdc"><c:out value="${row.denumire}"/></td>
-                                    <td width="12%" class="tdc"><c:out value="${row.id_type}"/></td>
-                                    <td width="12%" class="tdc"><c:out value="${row.id_quality}"/></td>
+                                    <td width="8%" class="tdc"><c:out value="${row.type}"/></td>
+                                    <td width="8%" class="tdc"><c:out value="${row.quality}"/></td>
+                                    <td width="8%" class="tdc"><c:out value="${row.genre}"/></td>
                                     <td width="12%" class="tdc"><c:out value="${row.pages}"/></td>
-                                    <td width="12%" class="tdc"><c:out value="${row.id_genre}"/></td>
-                                    <td width="12%" class="tdc"><c:out value="${row.pret}"/></td>
+                                    <td width="12%" class="tdc"><c:out value="${row.pret } lei"/></td>
                                 </tr>
                             </c:forEach>
                         </table>
+                    </div>
+                </div>
                         <%-- Details --%>
                         <sql:setDataSource 
                             var="snapshotgenres" 
                             driver="org.apache.derby.jdbc.ClientDriver40"
                             url="jdbc:derby://localhost:1527/EBOOKS;create=true;"
-                            user="CIPRIAN"  
-                            password="sargeras01"/>
+                            user="olimpiu"  
+                            password="olimpiu"/>
                         <sql:query dataSource="${snapshotgenres}" var="resultgenres">
                             SELECT ID, GENRE FROM EBOOKS.BOOK_GENRES 
                         </sql:query>
@@ -76,8 +82,8 @@
                             var="snapshotpaperqualities" 
                             driver="org.apache.derby.jdbc.ClientDriver40"
                             url="jdbc:derby://localhost:1527/EBOOKS;create=true;"
-                            user="CIPRIAN"  
-                            password="sargeras01"/>
+                            user="olimpiu"  
+                            password="olimpiu"/>
                         <sql:query dataSource="${snapshotpaperqualities}" var="resultpaperqualities">
                             SELECT ID, QUALITY FROM EBOOKS.BOOK_PAPER_QUALITIES 
                         </sql:query>    
@@ -85,30 +91,30 @@
                             var="snapshottypes" 
                             driver="org.apache.derby.jdbc.ClientDriver40"
                             url="jdbc:derby://localhost:1527/EBOOKS;create=true;"
-                            user="CIPRIAN"  
-                            password="sargeras01"/>
+                            user="olimpiu"  
+                            password="olimpiu"/>
                         <sql:query dataSource="${snapshottypes}" var="resulttypes">
                             SELECT ID, TYPE FROM EBOOKS.BOOK_TYPES 
                         </sql:query>    
-                        <table class="tablecenterdwithborder">
+                        <table style = "margin-top: 10px" class="tablecenterdwithborder">
                             <tr>
                                 <td>    
                                     <table>
                                         <tr>
                                             <td> ISBN: </td>
-                                            <td> <input type="text" name="admin_ebooks_isbn"></input></td>
+                                            <td> <input style = "min-width: 150px;" type="text" name="admin_ebooks_isbn"></input></td>
                                         </tr>                                        
                                         <tr>
                                             <td> DENUMIRE: </td>
-                                            <td> <input type="text" name="admin_ebooks_denumire"></input></td>
+                                            <td> <input style = "min-width: 150px;" type="text" name="admin_ebooks_denumire"></input></td>
                                         </tr>
                                         <tr>
                                             <td> PAGES NO: </td>
-                                            <td> <input type="text" name="admin_ebooks_pages"></input></td>
+                                            <td> <input style = "min-width: 150px;" type="text" name="admin_ebooks_pages"></input></td>
                                         </tr>
                                         <tr>
                                             <td> PRICE: </td>
-                                            <td> <input type="text" name="admin_ebooks_price"></input></td>
+                                            <td> <input style = "min-width: 150px;" type="text" name="admin_ebooks_price"></input></td>
                                         </tr>
                                         <tr>
                                             <td> ID_TYPE: </td>
@@ -149,10 +155,10 @@
                                     <table>
 
                                         <tr>
-                                            <td class="tdc"><input type="submit" class="ebooksstorebutton" name="admin_ebooks_insert" value="Insert"></td> 
-                                            <td class="tdc"><input type="submit" class="ebooksstorebutton" name="admin_ebooks_update" value="Update"></td>
-                                            <td class="tdc"><input type="submit" class="ebooksstorebutton" name="admin_ebooks_delete" value="Delete"></td> 
-                                            <td class="tdc"><input type="submit" class="ebooksstorebutton" name="admin_ebooks_cancel" value="Cancel"></td>
+                                            <td style = "min-width: 80px;" class="tdc"><input type="submit" class="ebooksstorebutton" name="admin_ebooks_insert" value="Insert"></td> 
+                                            <td style = "min-width: 80px;" class="tdc"><input type="submit" class="ebooksstorebutton" name="admin_ebooks_update" value="Update"></td>
+                                            <td style = "min-width: 80px;" class="tdc"><input type="submit" class="ebooksstorebutton" name="admin_ebooks_delete" value="Delete"></td> 
+                                            <td style = "min-width: 80px;" class="tdc"><input type="submit" class="ebooksstorebutton" name="admin_ebooks_cancel" value="Cancel"></td>
                                         </tr>  
                                     </table>
                                 </td>
