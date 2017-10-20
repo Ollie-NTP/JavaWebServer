@@ -33,7 +33,6 @@ body {
 }
 #table-wrapper table thead th .text {
   position:absolute;   
-  margin-bottom: 20px;
   z-index:2;
   height:20px;
   width:35%;
@@ -66,7 +65,7 @@ table{
     border-color: darkgrey;
 }
 .tablecenterdwithborder {
-    padding-top: 20px;
+    
     border-width: 1px;
     border-spacing: 0 0px;
     border-radius: 0.5em;
