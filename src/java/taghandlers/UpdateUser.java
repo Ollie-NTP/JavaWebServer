@@ -60,7 +60,7 @@ public class UpdateUser extends SimpleTagSupport {
             Class driverClass = Class.forName(driver);
             connection = DriverManager.getConnection(url, dbUser, dbPassword);
             
-           if (selectedCheckboxes.length > 1) {
+           if (selectedCheckboxes.length != 0) {
           
                String checkedSsn = selectedCheckboxes[0];
                
